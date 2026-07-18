@@ -126,7 +126,7 @@ Varyings ForwardPassVertex(Attributes input)
     return output;
 }
 
-half4 ForwardPassFragment(Varyings input, FRONT_FACE_TYPE facing : FRONT_FACE_SEMANTIC) : SV_TARGET
+half3 ComputeToonShading(Varyings input, FRONT_FACE_TYPE facing)
 {
 #if _DOUBLE_SIDED
     input.uv = lerp(input.uv, input.backUV, IS_FRONT_VFACE(facing, 0.0, 1.0));
@@ -177,6 +177,13 @@ half4 ForwardPassFragment(Varyings input, FRONT_FACE_TYPE facing : FRONT_FACE_SE
 #endif
 
     half3 finalColor = albedo * shadowColor + specular + rim + emission;
+
+    return finalColor;
+}
+
+half4 ForwardPassFragment(Varyings input, FRONT_FACE_TYPE facing : FRONT_FACE_SEMANTIC) : SV_TARGET
+{
+    half3 finalColor = ComputeToonShading(input, facing);
     half finalAlpha = 1.0;
 
     return half4(finalColor, finalAlpha);

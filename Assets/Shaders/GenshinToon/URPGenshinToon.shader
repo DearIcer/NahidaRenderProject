@@ -10,6 +10,13 @@ Shader "URPGenshinToon"
         [Enum(UnityEngine.Rendering.CullMode)] _Cull("Cull", Float) = 2
         [Enum(UnityEngine.Rendering.BlendMode)] _SrcBlend("Src Blend", Float) = 1
         [Enum(UnityEngine.Rendering.BlendMode)] _DstBlend("Dst Blend", Float) = 0
+        _StencilRef("Stencil Ref", Float) = 0
+
+        [Header(Show Through)]
+        [Toggle(_BROW_SHOW_THROUGH)] _BrowShowThrough("Brow Show Through", Float) = 0
+        _ShowThroughAlpha("Show Through Alpha", Range(0, 1)) = 0.65
+        _ShowThroughMaxDepth("Show Through Max Depth", Float) = 0.2
+        _ShowThroughStencilRef("Show Through Stencil Ref", Float) = 1
 
         [Header(Shadow)]
         _LightMap("Light Map", 2D) = "white" {}
@@ -83,6 +90,13 @@ Shader "URPGenshinToon"
             ZWrite On
             Blend[_SrcBlend][_DstBlend]
 
+            Stencil
+            {
+                Ref[_StencilRef]
+                Comp Always
+                Pass Replace
+            }
+
             HLSLPROGRAM
 
             // Universal Pipeline keywords
@@ -121,6 +135,43 @@ Shader "URPGenshinToon"
 
             #include "ToonInput.hlsl"
             #include "ToonForwardPass.hlsl"
+
+            ENDHLSL
+        }
+
+        Pass
+        {
+            Name "BrowShowThrough"
+            Tags {"LightMode" = "UniversalForwardOnly"}
+
+            Cull[_Cull]
+            ZWrite Off
+            ZTest Greater
+            Blend SrcAlpha OneMinusSrcAlpha
+
+            Stencil
+            {
+                Ref[_ShowThroughStencilRef]
+                Comp Equal
+            }
+
+            HLSLPROGRAM
+
+            #pragma shader_feature_local _BROW_SHOW_THROUGH
+
+            #pragma shader_feature_local_fragment _DOUBLE_SIDED
+            #pragma shader_feature_local_fragment _EMISSION
+            #pragma shader_feature_local_fragment _NORMAL_MAP
+            #pragma shader_feature_local_fragment _IS_FACE
+            #pragma shader_feature_local_fragment _SPECULAR
+            #pragma shader_feature_local_fragment _RIM
+
+            #pragma vertex BrowShowThroughVertex
+            #pragma fragment BrowShowThroughFragment
+
+            #include "ToonInput.hlsl"
+            #include "ToonForwardPass.hlsl"
+            #include "ToonBrowShowThroughPass.hlsl"
 
             ENDHLSL
         }

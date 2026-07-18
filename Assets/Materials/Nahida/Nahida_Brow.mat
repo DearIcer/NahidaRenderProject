@@ -25,6 +25,7 @@ Material:
   m_Parent: {fileID: 2100000, guid: 65f35073d8747e24c8dae962bcd8f4eb, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _BROW_SHOW_THROUGH
   - _IS_FACE
   - _RIM
   m_InvalidKeywords: []
@@ -56,8 +57,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _BrowShowThrough: 1
     - _IsFace: 1
     - _OutlineWidth: 0
+    - _ShowThroughAlpha: 0.65
+    - _ShowThroughMaxDepth: 0.2
     - _UseCustomMaterialType: 1
     - _UseRim: 1
     m_Colors:

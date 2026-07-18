@@ -59,6 +59,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _OutlineWidth: 1
+    - _StencilRef: 1
     - _UseEmission: 1
     - _UseNormalMap: 1
     - _UseRim: 1

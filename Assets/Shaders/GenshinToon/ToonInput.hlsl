@@ -7,6 +7,12 @@ CBUFFER_START(UnityPerMaterial)
     half    _Cull;
     half    _SrcBlend;
     half    _DstBlend;
+    half    _StencilRef;
+
+    half    _BrowShowThrough;
+    half    _ShowThroughAlpha;
+    half    _ShowThroughMaxDepth;
+    half    _ShowThroughStencilRef;
 
     half4   _LightDirectionMultiplier;
     half    _ShadowOffset;

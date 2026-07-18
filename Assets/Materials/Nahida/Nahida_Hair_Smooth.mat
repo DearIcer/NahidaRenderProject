@@ -58,6 +58,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _StencilRef: 1
     - _UseEmission: 1
     - _UseNormalMap: 1
     - _UseRim: 1

@@ -27,7 +27,8 @@ Material:
   m_ValidKeywords:
   - _IS_FACE
   - _RIM
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _OUTLINEENABLE_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0

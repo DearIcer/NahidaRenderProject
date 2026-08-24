@@ -47,12 +47,16 @@ project content (plus `Images/`, `README.md`, `LICENSE`).
 | Path | Contents |
 | --- | --- |
 | `Assets/Scripts/` | C# runtime scripts (all gameplay-agnostic utilities) |
+| `Assets/Scripts/Editor/` | Editor tools (`Nahida.Editor` namespace, e.g. one-click post-processing setup) |
 | `Assets/Scripts/Rendering/` | URP post-processing framework (`Nahida.Rendering` namespace) |
 | `Assets/Shaders/GenshinToon/` | `URPGenshinToon` toon shader + HLSL includes |
+| `Assets/Shaders/Character/` | `Character` shader — copy of `URPGenshinToon` with two stackable shadow features: screen-space bangs shadow (`_RECEIVE_SHADOWS`, face-only, samples `_HairMaskTexture` from `HairShadowFeature`; `CharacterHairShadowPass.hlsl` writes the mask, hair materials set `_HairShadowCaster`) and a dedicated character shadow map (`_RECEIVE_SHADOW_MAP`, samples `_CharacterShadowMap` from `CharacterShadowMap.cs`; `CharacterShadowDepth.shader` writes depth); used by the Odette materials |
+| `Assets/Shaders/Gem/` | `URPGem` faceted gem shader + HLSL includes |
 | `Assets/Shaders/PostProcessing/` | `URPGenshinPostProcess` fullscreen post-processing shader |
 | `Assets/Materials/` | Materials: `Nahida/`, `NahidaMMD/`, plus scene materials |
 | `Assets/Models/` | Nahida FBX models (`Avatar_Loli_Catalyst_Nahida.fbx`, `Nahida_MMD.fbx`) |
 | `Assets/Furina/` | Furina character: FBX, textures, scene, prefab, `Material/` (Chinese names, e.g. `体.mat`, `裙.mat`) |
+| `Assets/Avatar_Girl_Sword_Odette/` | Odette character: FBX + textures, `Material/` (`Odette_*.mat`, remapped via the FBX importer's `externalObjects`) |
 | `Assets/Textures/` | Character texture sets (`Avatar/`, `Nahida/`, `Scene/`) |
 | `Assets/Meshes/` | `Nahida_Body_Smooth.mesh` (smoothed-normal mesh used for outline extrusion) |
 | `Assets/Scenes/` | `SampleScene.unity` + `SceneRoot.prefab` |
@@ -118,6 +122,33 @@ The project has two custom rendering systems wired into URP via
 - The pass allocates `RTHandle` bloom pyramid buffers via
   `RenderingUtils.ReAllocateIfNeeded` and blits with
   `Blitter.BlitCameraTexture`; it skips Preview/Reflection cameras.
+- `HairShadowFeature.cs` (`ScriptableRendererFeature`, added to the URP renderer,
+  injects at `BeforeRenderingOpaques`): renders the hair mask for the
+  screen-space bangs shadow (刘海投影). The pass draws every renderer whose
+  shader has a `HairShadowMask` pass (only `Character`, and only materials
+  with `_HairShadowCaster = 1` actually emit fragments) into an R16G16 screen
+  RT `_HairMaskTexture` — R = hair flag, G = view-space depth in meters. In
+  the `Character` shader's face path (`_IS_FACE` + `_RECEIVE_SHADOWS`),
+  `GetHairShadow` offsets the screen UV along the view-space light direction
+  (scaled by `_HairShadowDistance`, corrected by `1/NDC.w`) and samples the
+  mask; a depth check (`_HairShadowDepthBias`) rejects shadows from hair
+  behind the head. The result is combined with the SDF face shadow via `min`.
+- `CharacterShadowMap.cs` (`ExecuteAlways` MonoBehaviour, on the
+  `CharacterShadowMap` object in the Odette scene, target = the Odette FBX
+  instance): the alternative **dedicated shadow map** solution. Each
+  `LateUpdate` it fits an orthographic frustum to the target along the main
+  light direction, draws all renderers under it with
+  `Shader "Hidden/Character/ShadowDepth"` into an `RFloat` RT via
+  `CommandBuffer.DrawRenderer` (note: the view matrix needs the right-handed
+  Z-flip to match `Camera.worldToCameraMatrix`), and publishes the globals
+  `_CharacterShadowMap` / `_CharacterShadowMatrix` / `_CharacterShadowBias` /
+  `_CharacterShadowMap_TexelSize`. In the `Character` shader the
+  `_RECEIVE_SHADOW_MAP` keyword makes `GetCharacterShadowMap` sample it (2x2
+  PCF, `min`-combined with the toon/SDF shadow on every material, not just
+  the face). It coexists with the screen-space bangs shadow; toggle per
+  material via the *Receive Shadow Map* / *Receive Shadows* checkboxes, or
+  disable the component / the `HairShadowFeature` to compare. Has a
+  `m_DebugView` OnGUI overlay showing the RT and renderer count.
 
 **Utility scripts** (`Assets/Scripts/`):
 - `FirstPersonController.cs` — Play-mode fly camera (comments in Chinese).

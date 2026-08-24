@@ -1,0 +1,87 @@
+# Blender 5.1.2 MTL File: 'None'
+# www.blender.org
+
+newmtl Avatar_Girl_Sword_Odette_Mat_Body.001
+Ns 100.000015
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+map_Kd Avatar_Girl_Sword_Odette_Tex_Body_Diffuse.png
+map_d Avatar_Girl_Sword_Odette_Tex_Body_Diffuse.png
+map_Bump -bm 1.000000 Avatar_Girl_Sword_Odette_Tex_Body_Normalmap.png
+
+newmtl Avatar_Girl_Sword_Odette_Mat_Body01.001
+Ns 499.999969
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+map_Kd Avatar_Girl_Sword_Odette_Tex_Body01_Diffuse.png
+map_d Avatar_Girl_Sword_Odette_Tex_Body01_Diffuse.png
+map_Bump -bm 1.000000 Avatar_Girl_Sword_Odette_Tex_Body01_Normalmap.png
+
+newmtl Avatar_Girl_Sword_Odette_Mat_Brow.001
+Ns 100.000015
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+map_Kd Avatar_Girl_Sword_Odette_Tex_Face_Diffuse.png
+map_d Avatar_Girl_Sword_Odette_Tex_Face_Diffuse.png
+
+newmtl Avatar_Girl_Sword_Odette_Mat_Dress.001
+Ns 100.000015
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+map_Kd Avatar_Girl_Sword_Odette_Tex_Hair_Diffuse.png
+map_d Avatar_Girl_Sword_Odette_Tex_Hair_Diffuse.png
+map_Bump -bm 1.000000 Avatar_Girl_Sword_Odette_Tex_Hair_Normalmap.png
+
+newmtl Avatar_Girl_Sword_Odette_Mat_Dress01.001
+Ns 499.999969
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+map_Kd Avatar_Girl_Sword_Odette_Tex_Body01_Diffuse.png
+map_d Avatar_Girl_Sword_Odette_Tex_Body01_Diffuse.png
+map_Bump -bm 1.000000 Avatar_Girl_Sword_Odette_Tex_Body01_Normalmap.png
+
+newmtl Avatar_Girl_Sword_Odette_Mat_Face.001
+Ns 100.000015
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+map_Kd Avatar_Girl_Sword_Odette_Tex_Face_Diffuse.png
+map_d Avatar_Girl_Sword_Odette_Tex_Face_Diffuse.png
+
+newmtl Avatar_Girl_Sword_Odette_Mat_Hair.001
+Ns 39.999996
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+map_Kd Avatar_Girl_Sword_Odette_Tex_Hair_Diffuse.png
+map_d Avatar_Girl_Sword_Odette_Tex_Hair_Diffuse.png
+map_Bump -bm 1.000000 Avatar_Girl_Sword_Odette_Tex_Hair_Normalmap.png
+
+newmtl Avatar_Girl_Sword_Odette_Mat_Pupil.001
+Ns 100.000015
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+map_Kd Avatar_Girl_Sword_Odette_Tex_Pupil01_Diffuse.png
+map_d Avatar_Girl_Sword_Odette_Tex_Pupil01_Diffuse.png

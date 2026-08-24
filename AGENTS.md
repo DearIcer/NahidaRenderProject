@@ -135,7 +135,10 @@ The project has two custom rendering systems wired into URP via
   behind the head. The result is combined with the SDF face shadow via `min`.
 - `CharacterShadowMap.cs` (`ExecuteAlways` MonoBehaviour, on the
   `CharacterShadowMap` object in the Odette scene, target = the Odette FBX
-  instance): the alternative **dedicated shadow map** solution. Each
+  instance; **currently the GameObject is deactivated** — the Odette materials
+  use the screen-space bangs shadow instead, i.e. only `_RECEIVE_SHADOWS` is
+  on and `Odette_Hair.mat` sets `_HairShadowCaster = 1`): the alternative
+  **dedicated shadow map** solution. Each
   `LateUpdate` it fits an orthographic frustum to the target along the main
   light direction, draws all renderers under it with
   `Shader "Hidden/Character/ShadowDepth"` into an `RFloat` RT via

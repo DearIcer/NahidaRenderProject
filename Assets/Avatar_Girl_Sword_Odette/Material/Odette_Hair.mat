@@ -13,7 +13,6 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _RECEIVE_SHADOWS
-  - _RECEIVE_SHADOW_MAP
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -145,7 +144,7 @@ Material:
     - _OutlineZOffset: 0.1
     - _Parallax: 0.005
     - _QueueOffset: 0
-    - _ReceiveShadowMap: 1
+    - _ReceiveShadowMap: 0
     - _ReceiveShadows: 1
     - _RimIntensity: 0.5
     - _RimOffset: 5
